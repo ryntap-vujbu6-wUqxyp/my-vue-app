@@ -4,7 +4,7 @@ import Login from './components/Login.vue'
 </script>
 
 <template>
-  <Login msg="Vite + Vue3 + Ts + pinia + vuerouter + antd"/>
+  <Login msg="Vite + Vue3 + Ts + pinia + vuerouter + antd" title="title"/>
 </template>
 
 <style scoped>
