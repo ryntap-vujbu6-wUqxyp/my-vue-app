@@ -2,7 +2,6 @@
   <div class="login-container">
     <div class="login-box">
       <Button type="primary" @click="btnClick">{{global.token}}</Button>
-      
       <DatePicker />
     </div>
   </div>
@@ -36,6 +35,7 @@ const count = ref(0);
 .login-box {
   width: 300px;
   height: 300px;
+  background-color: aliceblue;
   position: absolute;
   top: 50%;
   left: 50%;

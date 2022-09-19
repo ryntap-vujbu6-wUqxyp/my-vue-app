@@ -36,7 +36,7 @@ export const GlobalStore = defineStore({
     ]
   }
 });
+
 const pinia = createPinia();
 pinia.use(piniaPersist);
-
 export default pinia;
