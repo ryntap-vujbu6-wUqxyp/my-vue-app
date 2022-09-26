@@ -5,7 +5,7 @@
                 <Input 
                     placeholder="请输入待办事项" 
                     v-model:value="TodoStore.newItem"
-                    :allowClear="true"
+                    :allowClear="false"
                     @keyup.enter="addTodoList"
                 />
                 <Button 
