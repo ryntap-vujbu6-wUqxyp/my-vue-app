@@ -10,7 +10,6 @@
                 />
                 <Button 
                     type="primary" 
-                    shape="round" 
                     @click="addTodoList"
                 >增加</Button>
             </header>
