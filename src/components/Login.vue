@@ -2,8 +2,8 @@
   <div class="login-container">
     <div class="login-box">
       <transition 
-        enter-active-class="animate__animated  animate__flip"
-        leave-active-class="animate__animated  animate__fadeOut"
+        enter-active-class="animate__animated  animate__swing"
+        leave-active-class="animate__animated  animate__backOutLeft"
       >
         <Button type="primary" @click="GotoList" v-if="global.token!=='empty'">待办</Button>
         <Button type="primary" @click="setToken" v-else>登录</Button>

@@ -101,10 +101,10 @@ router.beforeEach((to, from, next) => {
   if (to.path == '/Login') {
     return next();
   } else {
-    // if (GlobalStore().token==='empty') {
-    //   message.info("没有token,自动跳转登录页")
-    //   return next('/Login');
-    // }
+    if (GlobalStore().token==='empty') {
+      message.info("没有token,自动跳转登录页")
+      return next('/Login');
+    }
     next();
   }
 })

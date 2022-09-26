@@ -21,16 +21,19 @@ export const useTodoStore = defineStore('todo', () => {
     let Items = reactive<{list:Item[]}>({list:[]});
 
     watch(newItem,()=>{
-        console.log('变化了======================',newItem.value);
         Items.list.forEach(item=>{
-            if(item.context.indexOf(newItem.value)!=-1){
-                item.context=`<span style='color:red'>${item.context}</span>`;
+            if(newItem.value&&item.context){
+                //清除上次的搜索span
+                var reg1 = new RegExp('</?span.*?>', 'gi');
+                item.context = item.context.replace(reg1, '')
+
+                //为搜索内容添加高亮
+                let replaceReg = new RegExp(newItem.value,'g');
+                let replaceString = '<span style="color:#FFF;background:red">' + newItem.value + '</span>';
+                item.context = item.context.replace(replaceReg, replaceString);
+
             }
         });
-        // this.options = this.list.filter(item => {
-        //     return item.label.toLowerCase()
-        //       .indexOf(query.toLowerCase()) > -1;
-        //   });
     })
 
     //增加待办事项
@@ -47,6 +50,11 @@ export const useTodoStore = defineStore('todo', () => {
         Items.list.push({ id: generate(), context: newItem.value, status: false ,isRead:false});
         //置空
         newItem.value = '';
+        //清除搜索
+        Items.list.forEach(item=>{
+            var reg1 = new RegExp('</?span.*?>', 'gi');
+            item.context = item.context.replace(reg1, '')
+        })
     };
 
     //删除待办事项
