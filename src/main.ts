@@ -16,9 +16,26 @@ app.use(router)
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 app.use(Antd);
-import { Button, DatePicker, Layout, Menu } from "ant-design-vue";
-app.use(Button);
-app.use(DatePicker);
+
+//animate.css
+import 'animate.css'
+import 'animate.css/animate.compat.css'
+
+//挂载自定义的全局函数替换过滤器
+type Filter = {
+  //T：参数的泛型约束
+    format: <T extends any>(str: T) => T
+}
+declare module '@vue/runtime-core' {
+    export interface ComponentCustomProperties {
+        $filters: Filter
+    }
+}
+app.config.globalProperties.$filters = {
+  format<T extends any>(str: T): string {
+    return '通过挂载在全局函数实现过滤器';
+  }
+}
 
 
-createApp(App).mount('#app')
+app.use(router).mount('#app')

@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted ,onBeforeMount} from 'vue'
 /* 
 收集用户鼠标点击的页面坐标
 */
@@ -12,6 +12,10 @@ export default function useMousePosition () {
     x.value = e.pageX
     y.value = e.pageY
   }
+
+  onBeforeMount(()=>{
+    console.log('2=========');
+  });
 
   // 挂载后绑定点击监听
   onMounted(() => {

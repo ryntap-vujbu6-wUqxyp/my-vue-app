@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
 // import HelloWorld from './components/HelloWorld.vue'
 import Login from './components/Login.vue'
@@ -19,10 +20,10 @@ import Hooks from './components/hooks/hooks.vue';
 //利用hook和泛型，强化类型检查
 import Hooks2 from './components/hooks2/hooks2.vue';
 
-//将reactive的响应式数据变成响应式的ref数据
+//将reactive的响应式数据全部变成响应式的ref数据
 import ToRefs from './components/toRefs/toRefs.vue';
 
-//拷贝一份响应式的数据
+//将reactive的响应式数据其中一个对象变成响应式的ref数据
 import ToRef from './components/toRef/toRef.vue';
 
 //浅响应式
@@ -31,15 +32,16 @@ import ShallowReactiveAndShallowRef from './components/shallowReactiveAndShallow
 //Teleport(瞬移)
 import Test from './components/Teleport/test.vue'
 
+//todolist案例
+import TodoList from './components/TodoList/TodoList.vue'
 
-
-
-
+//slot弹窗案例
+import Dialog from './components/dialog/dialog.vue';
 </script>
 
 <template>
   <!-- <Login msg="Vite + Vue3 + Ts + pinia + vuerouter + antd" title="title"/> -->
-  <reactive/>
+  <!-- <reactive/> -->
   <!-- <Parents/> -->
   <!-- <computed/> -->
   <!-- <LifeParents/> -->
@@ -48,7 +50,9 @@ import Test from './components/Teleport/test.vue'
   <!-- <ToRefs/> -->
   <!-- <ToRef/> -->
   <!-- <ShallowReactiveAndShallowRef/> -->
-  <Test/>
+  <!-- <Test/> -->
+  <!-- <TodoList/> -->
+  <router-view></router-view> 
 </template>
 
 <style scoped>

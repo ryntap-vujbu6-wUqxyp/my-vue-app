@@ -11,7 +11,7 @@ export const GlobalStore = defineStore({
   id: 'GlobalState', // id: 必须的，在所有 Store 中唯一
   // state: 返回对象的函数
   state: (): GlobalState => ({
-   token: 'token',
+   token: 'empty',
    userInfo: {}
   }),
   getters: {},
@@ -24,17 +24,17 @@ export const GlobalStore = defineStore({
     this.userInfo = userInfo;
    }
   },
-  // 持久化
-  persist: {
-    enabled: true,
-    strategies: [
-        {
-        key: 'GlobalState',
-        storage: localStorage,
-        // storage: sessionStorage,
-        }
-    ]
-  }
+  // 持久化 存储到localStorage
+  // persist: {
+  //   enabled: true,
+  //   strategies: [
+  //       {
+  //       key: 'GlobalState',
+  //       storage: localStorage,
+  //       // storage: sessionStorage,
+  //       }
+  //   ]
+  // }
 });
 
 const pinia = createPinia();
