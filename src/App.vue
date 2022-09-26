@@ -16,7 +16,7 @@ import Computed from './components/computed/computed.vue'
 import LifeParents from './components/lifeCycle/parents.vue'
 
 //hooks 类似vue2的混入,利用hook代码复用
-import Hooks from './components/hooks/hooks.vue';
+// import Hooks from './components/hooks/hooks.vue';
 //利用hook和泛型，强化类型检查
 import Hooks2 from './components/hooks2/hooks2.vue';
 
@@ -30,7 +30,7 @@ import ToRef from './components/toRef/toRef.vue';
 import ShallowReactiveAndShallowRef from './components/shallowReactiveAndShallowRef/shallowReactiveAndShallowRef.vue'
 
 //Teleport(瞬移)
-import Test from './components/Teleport/test.vue'
+// import Test from './components/Teleport/test.vue'
 
 //todolist案例
 import TodoList from './components/TodoList/TodoList.vue'
