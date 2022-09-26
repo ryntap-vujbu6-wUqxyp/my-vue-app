@@ -1,25 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
-    "skipLibCheck": true,
-    // // 解析非相对模块名的基准目录
-    // "baseUrl": "./",
-    // // 模块名到基于 baseUrl的路径映射的列表。ts文件中使用@
-    // "paths": {
-    //   "@": ["src"],
-    //   "@/*": ["src/*"]
-    // }
+      "target": "esnext",
+      "module": "esnext",
+      "strict": true, //这样可以对`this`上的数据属性进行严格的推断，否则总是被视为any类型
+      "jsx": "preserve",
+      "moduleResolution": "node"
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+      "src/**/*", "src/main.d.ts" //**/递归匹配任意子目录
+  ],
+  "exclude": [
+      "node_modules"
+  ],
+  // "files": ["fix.ts"]
 }
