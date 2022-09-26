@@ -39,7 +39,6 @@ function GotoList(){
 //登录 设置token
 function setToken(){
   global.setToken('token');
-  console.log('token-===========',GlobalStore().token);
 }
 </script>
   

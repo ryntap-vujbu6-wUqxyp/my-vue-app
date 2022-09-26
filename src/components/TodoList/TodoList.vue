@@ -57,9 +57,7 @@ let tokenTimer:any;
 
 
 onMounted(()=>{
-    console.log('初始化加载================')
     setClearToken();
-    console.log('==========',route.query.msg,tokenTimer);
 });
 
 //设置token定时清除定时器 10s没有操作将清除token 并且跳转登录页
