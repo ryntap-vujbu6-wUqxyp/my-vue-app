@@ -62,16 +62,9 @@ export const useTodoStore = defineStore('todo', () => {
     //修改单条待办状态
     function updateTodoList(item: Item) {
         newItem.value='';
-        // Items.list.forEach(item=>{
-        //     var reg1 = new RegExp('</?span.*?>', 'ig');
-        //     item.context = item.context.replace(reg1, '')
-        // })
         let index = Items.list.indexOf(item);
         Items.list[index].isRead = !item.isRead;
     };
-
-    //模糊查询待办
-    function queryTodoList() { };
     
     //选中待办的条数
     const isCompleteds = computed(() => {
@@ -104,7 +97,6 @@ export const useTodoStore = defineStore('todo', () => {
         addItem,
         deleteTodoList,
         updateTodoList,
-        queryTodoList,
         clear,
     }
 });

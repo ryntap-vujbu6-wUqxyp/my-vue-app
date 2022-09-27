@@ -16,7 +16,7 @@
 
             <div class="main-content">
                 <ul v-for="item,index in TodoStore.Items.list" :key="item.id">
-                    <li v-if="!item.isRead" @dblclick="changeReadonlyStatus(item)" @mouseenter="mouseEnter(item)">
+                    <li v-if="!item.isRead" @dblclick="changeReadonlyStatus(item)">
                         <Checkbox v-model:checked="item.status" >
                         {{'待办'+(index+1)+'：'}}<span v-html="item.context"></span>
                         </Checkbox>
@@ -98,18 +98,11 @@ const changeReadonlyStatus=(item:Item)=>{
     TodoStore.updateTodoList(item);
 };
 
-//模糊查询待办
-const queryTodoList=()=>{};
-
 //清除已完成
 const clearTodoList=()=>{
     if(!existToken())return;
     TodoStore.clear();
 };
-
-const mouseEnter=(item:Item)=>{
-    // console.log('========',item);
-}
 
 </script>
 <style>
