@@ -15,14 +15,22 @@
             </header>
 
             <div class="main-content">
-                <ul v-for="item,index in TodoStore.Items.list" :key="item.id">
-                    <li v-if="!item.isRead" @dblclick="changeReadonlyStatus(item)">
-                        <Checkbox v-model:checked="item.status" >
-                        {{'待办'+(index+1)+'：'}}<span v-html="item.context"></span>
+                <ul v-for="item,index in TodoStore.Items.list" :key="item._id">
+                    <li 
+                        @mousemove="mousemoveHandler(item,true)" 
+                        @mouseleave="mousemoveHandler(item,false)"
+                    >
+                    <!-- @dblclick="modifyStatus(item)"  -->
+                        <Checkbox v-model:checked="item.isFinished" v-if="!item.isRead" @change="changeStatus(item)">
+                        {{'待办'+(index+1)+'：'}}<span v-html="item.todoListName"></span>
                         </Checkbox>
-                        <i class="deelte-icon" @click="deleteTodoList(item)">×</i>
+                        <Input style="width:55%" v-model:value="(item.todoListName as any)" v-if="item.isRead" @keyup.enter="changeReadonlyStatus(item,false)"/>
+                        <section>
+                            <Button type="primary" size="small" v-if="item.isRead" @click="changeReadonlyStatus(item,false)">确认</Button>
+                            <Button type="primary" size="small" @click="modifyStatus(item)" v-if="item.showDelBut">修改</Button>
+                            <Button type="primary" danger size="small" @click="deleteTodoList(item)" v-if="item.showDelBut">删除</Button>
+                        </section>
                     </li>
-                    <Input v-model:value="(item.context as any)" v-if="item.isRead" @keyup.enter="changeReadonlyStatus(item)"/>
                 </ul>
             </div>
             
@@ -30,7 +38,7 @@
                 <span class="finish-font">
                     已完成{{TodoStore.isCompleteds}}/{{TodoStore.Items.list.length}}个任务
                 </span>
-                <div class="selectall-btn">
+                <div class="select-all-btn">
                     <Checkbox v-model:checked="TodoStore.allSelect">全选</Checkbox>
                 </div>
                 <Button 
@@ -53,18 +61,12 @@ const globalStore=GlobalStore();
 const router = useRouter(); 
 const route=useRoute();
 let tokenTimer:any;
+const showDelBut=ref(false);
 
 
 onMounted(()=>{
-    setClearToken();
+    TodoStore.queryTodoList();
 });
-
-//设置token定时清除定时器 10s没有操作将清除token 并且跳转登录页
-const setClearToken=()=>{
-    tokenTimer=setInterval(() => {
-        globalStore.setToken('empty');
-    }, 1000*10);
-}
 
 //判断有无token,token失效则推送登陆页面
 function existToken():boolean{
@@ -74,36 +76,49 @@ function existToken():boolean{
         router.push({path:"/Login"})
         return false
     }else{
-        setClearToken();
         return true;
     }
 }
 
 
 //增加待办
-const addTodoList=()=>{ 
-    if(!existToken())return;
+const addTodoList=()=>{
     TodoStore.addItem();
 }
 
 //删除待办
 const deleteTodoList=(item:Item)=>{
-    if(!existToken())return;
     TodoStore.deleteTodoList(item);
 }
-
+//将状态改成修改状态
+const modifyStatus=(item:Item)=>{
+    TodoStore.modifyStatus(item);
+}
+//改变完成状态
+const changeStatus=(item:Item)=>{
+    TodoStore.changeStatus(item);
+}
 //修改待办记录
-const changeReadonlyStatus=(item:Item)=>{
-    if(!existToken())return;
-    TodoStore.updateTodoList(item);
+const changeReadonlyStatus=(item:Item,type:boolean)=>{
+    TodoStore.updateTodoList(item,type);
 };
 
 //清除已完成
 const clearTodoList=()=>{
-    if(!existToken())return;
     TodoStore.clear();
 };
 
+
+const mousemoveHandler=(item:Item,flag:boolean)=>{
+    if(flag){
+        item.showDelBut=true;
+    }else{
+        TodoStore.Items.list.forEach(item=>{
+        item.showDelBut=false;
+    })
+    }
+    
+}
 </script>
 <style>
 .mid-box{
@@ -115,7 +130,8 @@ const clearTodoList=()=>{
     right: 0;
     bottom: 0;
     margin:auto;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
+    border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 10px 10px 10px #ccc;
     padding: 20px;
@@ -130,6 +146,7 @@ ul{
     margin-bottom: 0;
     padding-left: 0;
     margin: 0;
+    /* aspect-ratio: 16/9;  长宽比*/ 
 }
 ul li{
     list-style: none;
@@ -174,18 +191,7 @@ ul li:hover{
 .ant-input-affix-wrapper{
     width: 80%;
 }
-.deelte-icon{
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    line-height: 22px;
-    background-color: #FFF;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    text-align: center;
-    cursor: pointer;
-}
-.selectall-btn{
+.select-all-btn{
     width: 70px;
     border: 1px solid #ccc;
     padding: 4px;

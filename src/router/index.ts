@@ -30,7 +30,8 @@ const routes: Array<RouteRecordRaw> = [
    path: "/Login",
    name: "Login",
    meta: {
-    title: "Login",
+    // title: "登录页面",
+    transition:"animate__fadeInUp",
    },
    component: Login,
   },
@@ -94,6 +95,17 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHistory(),
+  //滚动条滚动 可以让页面在顶部也可以滚动在指定位置
+  // scrollBehavior: (to, from, savePosition) => {
+  //   console.log(to, '==============>', savePosition);
+  //   return new Promise((r) => {
+  //     setTimeout(() => {
+  //       r({
+  //         top: 10000
+  //       })
+  //     }, 2000);
+  //   })
+  // },
   routes,
 });
 
@@ -101,10 +113,10 @@ router.beforeEach((to, from, next) => {
   if (to.path == '/Login') {
     return next();
   } else {
-    if (GlobalStore().token==='empty') {
-      message.info("没有token,自动跳转登录页")
-      return next('/Login');
-    }
+    // if (GlobalStore().token==='empty') {
+    //   message.info("没有token,自动跳转登录页")
+    //   return next('/Login');
+    // }
     next();
   }
 })
