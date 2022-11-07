@@ -123,7 +123,7 @@ function setToken() {
 const LoginEwelink = () => {
   const config = {
     'Authorization': '',
-    'X-CK-Appid': 'vcMG8oLY9CMf3CGg7g8tKlvatvPnRw84',
+    'X-CK-Appid': '',
   };
   const baseUrl2 = 'http://192.168.2.105:3000';
   const url = baseUrl + '/v2/user/login';
